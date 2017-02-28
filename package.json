@@ -8,6 +8,8 @@
     "src"
   ],
   "scripts": {
+    "build:commonjs": "babel src --out-dir lib",
+    "clean": "rm -rfv lib",
     "test": "standard && echo \"No tests yet.\""
   },
   "repository": {
