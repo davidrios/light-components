@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+if [ -z "$1" ]; then
+	echo "no demo specified"
+	exit
+fi
+
+if [ ! -f "demo/demo-$1.es6" ]; then
+	echo "demo $1 does not exist"
+	exit
+fi
+
+webpack --config "demo/webpack.config.js" "demo/demo-$1.es6" "demo/demo-$1.js"

@@ -12,7 +12,8 @@
     "clean": "rm -rfv lib",
     "test": "standard && echo \"No tests yet.\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "demo:build": "./demo/build"
   },
   "repository": {
     "type": "git",

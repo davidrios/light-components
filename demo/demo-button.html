@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo - Button</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      a.btn {
+        float: left;
+        padding: 1px;
+        margin: 1px;
+        border: 1px solid black;
+        font-size: 7pt;
+        cursor: pointer;
+      }
+      a.btn.active {
+        background-color: #ccc;
+      }
+      a.btn.hover {
+        background-color: #eee;
+      }
+      a.btn.disabled {
+        border: 1px solid #ccc;
+        color: #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app-container"></div>
+    <script src="demo-button.js"></script>
+  </body>
+</html>
