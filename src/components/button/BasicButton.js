@@ -5,63 +5,47 @@ export default class BasicButton extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      isActive: props.isActive,
-      isHovered: props.isHovered
+      isActive: props.isActive
     }
-  }
-
-  componentDidMount () {
-    this.handleDocumentMouseMove = ev => {
-      if (this.props.isDisabled) return
-
-      if (ev.currentTarget === this.componentRef) {
-        ev.stopPropagation()
-        if (!this.state.isHovered && !propOrState(this, 'isActive')) {
-          this.setState({ isHovered: true })
-        }
-        return
-      }
-
-      if (this.state.isHovered) {
-        this.setState({ isHovered: false })
-      }
-    }
-
-    this.handleDocumentMouseUp = ev => {
-      if (this.props.isDisabled) return
-
-      this.setState({ isActive: false })
-
-      if (ev.currentTarget === this.componentRef) {
-        ev.stopPropagation()
-        if (!propOrState(this, 'isActive')) {
-          this.setState({ isHovered: true })
-        }
-        callNotNull(this.props.onRelease)
-      }
-    }
-
-    this.componentRef.addEventListener('mousemove', this.handleDocumentMouseMove)
-    document.addEventListener('mousemove', this.handleDocumentMouseMove)
-    this.componentRef.addEventListener('mouseup', this.handleDocumentMouseUp)
-    document.addEventListener('mouseup', this.handleDocumentMouseUp)
-  }
-
-  componentWillUnmount () {
-    this.componentRef.removeEventListener('mousemove', this.handleDocumentMouseMove)
-    document.removeEventListener('mousemove', this.handleDocumentMouseMove)
-    this.componentRef.removeEventListener('mouseup', this.handleDocumentMouseUp)
-    document.removeEventListener('mouseup', this.handleDocumentMouseUp)
   }
 
   handleMouseDown (ev) {
     if (this.props.isDisabled) return
 
-    callNotNull(this.props.onPress)
     this.setState({
       isActive: true,
       isHovered: false
     })
+
+    callNotNull(this.props.onPress)
+  }
+
+  handleMouseOut (ev) {
+    if (this.props.isDisabled) return
+
+    if (this.state.isHovered) {
+      this.setState({ isHovered: false })
+    }
+  }
+
+  handleMouseOver (ev) {
+    if (this.props.isDisabled) return
+
+    if (!this.state.isHovered && !propOrState(this, 'isActive')) {
+      this.setState({ isHovered: true })
+    }
+  }
+
+  handleMouseUp (ev) {
+    if (this.props.isDisabled) return
+
+    this.setState({ isActive: false })
+
+    if (this.props.isActive == null) {
+      this.setState({ isHovered: true })
+    }
+
+    callNotNull(this.props.onRelease)
   }
 
   render () {
@@ -83,6 +67,9 @@ export default class BasicButton extends React.PureComponent {
       <a
         className={className}
         onMouseDown={ev => { this.handleMouseDown(ev) }}
+        onMouseOut={ev => { this.handleMouseOut(ev) }}
+        onMouseOver={ev => { this.handleMouseOver(ev) }}
+        onMouseUp={ev => { this.handleMouseUp(ev) }}
         ref={el => { this.componentRef = el }}
         style={style}
       >
@@ -97,7 +84,6 @@ BasicButton.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool,
   isDisabled: React.PropTypes.bool,
-  isHovered: React.PropTypes.bool,
   onPress: React.PropTypes.func,
   onRelease: React.PropTypes.func,
   reactCSS: React.PropTypes.func,
