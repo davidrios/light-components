@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { callNotNull, propOrState } from '../../utils/misc'
 
@@ -80,12 +81,12 @@ export default class BasicButton extends React.PureComponent {
 }
 
 BasicButton.propTypes = {
-  children: React.PropTypes.element.isRequired,
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  isDisabled: React.PropTypes.bool,
-  onPress: React.PropTypes.func,
-  onRelease: React.PropTypes.func,
-  reactCSS: React.PropTypes.func,
-  style: React.PropTypes.object
+  children: PropTypes.element.isRequired,
+  className: PropTypes.string,
+  isActive: PropTypes.bool,
+  isDisabled: PropTypes.bool,
+  onPress: PropTypes.func,
+  onRelease: PropTypes.func,
+  reactCSS: PropTypes.func,
+  style: PropTypes.object
 }
